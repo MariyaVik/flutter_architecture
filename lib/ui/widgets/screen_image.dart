@@ -86,24 +86,19 @@ class _ScreenImageState extends State<ScreenImage> {
 // }
 
 // class _SelectImageThemeWidgetState extends State<SelectImageThemeWidget> {
-//   String dropdownValue = 'Животные';
-
-//   Settings get settings => locator.get<Settings>();
-
-//   void _changeValue(String? newValue) {
-//     if (newValue == null) return;
-//     dropdownValue = newValue;
-//     settings.remoteImageName = newValue;
-//     locator.unregister<APIService>();
-//     locator.registerSingleton<APIService>(
-//         settings.remoteImageName == ImageThemeName.animals
-//             ? APIServiceAnimals()
-//             : APIServiceNature());
-//     setState(() {});
-//   }
-
 //   @override
 //   Widget build(BuildContext context) {
+//     final settings = locator.get<Settings>();
+//     String dropdownValue = settings.remoteImageName;
+
+//     void _changeValue(String? newValue) {
+//       if (newValue == null) return;
+//       dropdownValue = newValue;
+//       settings.remoteImageName = newValue;
+//       settings.changeService(newValue);
+//       setState(() {});
+//     }
+
 //     return DropdownButton<String>(
 //       value: dropdownValue,
 //       items: <String>[ImageThemeName.animals, ImageThemeName.nature]
