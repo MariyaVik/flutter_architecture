@@ -8,7 +8,6 @@ GetIt locator = GetIt.I;
 
 void setupLocator() {
   final settings = Settings();
-  locator.registerSingleton(settings);
   locator.registerSingleton<APIService>(
       settings.remoteImageName == ImageThemeName.animals
           ? APIServiceAnimals()
