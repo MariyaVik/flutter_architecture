@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skillbox_12_8/data/api/api_model.dart';
 import 'package:skillbox_12_8/domain/settings.dart';
-import 'package:skillbox_12_8/service_locator.dart';
 
 class ScreenImage extends StatefulWidget {
   const ScreenImage({Key? key}) : super(key: key);
@@ -24,9 +23,12 @@ class _ScreenImageState extends State<ScreenImage> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Consumer<Settings>(builder: (context, settings, child) {
-            return MyImageWidget();
-          }),
+          SizedBox(
+            height: 350,
+            child: Consumer<Settings>(builder: (context, settings, child) {
+              return MyImageWidget(url: settings.url);
+            }),
+          ),
           ElevatedButton(
             onPressed: _nextImage,
             child: const Text('Дальше'),
@@ -82,16 +84,22 @@ class _SelectImageThemeWidgetState extends State<SelectImageThemeWidget> {
 }
 
 class MyImageWidget extends StatelessWidget {
-  MyImageWidget({Key? key}) : super(key: key);
-
-  final imageTheme = locator.get<APIService>();
+  final String url;
+  const MyImageWidget({
+    required this.url,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Image.network(
-      imageTheme.fetchImage + "?v=${DateTime.now().millisecondsSinceEpoch}",
+      url + "?v=${DateTime.now().millisecondsSinceEpoch}",
       loadingBuilder: (context, child, loadingProgress) =>
-          loadingProgress == null ? child : const CircularProgressIndicator(),
+          loadingProgress == null
+              ? child
+              : const Center(
+                  child: CircularProgressIndicator(),
+                ),
       errorBuilder: (context, error, stackTrace) =>
           const Image(image: AssetImage('assets/images/no_image.png')),
     );

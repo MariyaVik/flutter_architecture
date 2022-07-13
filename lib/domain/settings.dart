@@ -6,6 +6,8 @@ import 'package:skillbox_12_8/service_locator.dart';
 
 class Settings extends ChangeNotifier {
   String? _remoteImageName;
+  String? _url;
+  String get url => _url ?? 'http://placeimg.com/640/480/animals';
   String get remoteImageName => _remoteImageName ?? ImageThemeName.animals;
   set remoteImageName(String value) {
     _remoteImageName = value;
@@ -13,10 +15,10 @@ class Settings extends ChangeNotifier {
 
   void changeService(String value) {
     locator.unregister<APIService>();
-    locator.registerSingleton<APIService>(
-        _remoteImageName == ImageThemeName.animals
-            ? APIServiceAnimals()
-            : APIServiceNature());
+    locator.registerSingleton<APIService>(value == ImageThemeName.animals
+        ? APIServiceAnimals()
+        : APIServiceNature());
+    _url = locator.get<APIService>().fetchImage;
     notifyListeners();
   }
 }
