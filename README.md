@@ -7,3 +7,6 @@
 <img src="assets/images/screenshots/3.png" width="330" height="500">
 <img src="assets/images/screenshots/4.png" width="330" height="500">
 
+## Доделать
+
+* нормально организовать сервисы и настройки
